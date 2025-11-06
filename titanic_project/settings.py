@@ -7,7 +7,10 @@ SECRET_KEY = 'django-insecure-titanic-survivor-predictor-2024!'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+    'https://titanic-api-wy8d.onrender.com',
+    ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
