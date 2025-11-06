@@ -5,11 +5,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-titanic-survivor-predictor-2024!'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '*',
-    'https://titanic-api-wy8d.onrender.com',
     ]
 
 INSTALLED_APPS = [
@@ -25,11 +24,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',      # Maneja sesiones
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',               # Protección CSRF
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # Maneja autenticación
+    'django.contrib.messages.middleware.MessageMiddleware',    # Maneja mensajes flash
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
