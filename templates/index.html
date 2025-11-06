@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survivor Predictor - Lofi 90s Edition</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Courier+New:wght@400;700&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="scan-lines"></div>
+    
+    <!-- Controles de audio estilo retro -->
+    <div class="audio-controls">
+        <button class="audio-btn" id="muteToggle" title="Silenciar">🔊</button>
+        <div class="volume-popup" id="volumePopup">
+            <input type="range" class="volume-slider" id="globalVolume" min="0" max="100" value="70" title="Volumen">
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>🚢 Titanic Survivor Predictor</h1>
+            <p class="subtitle">¿Habrías sobrevivido al viaje inaugural del RMS Titanic en 1912?</p>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="form-section">
+                <div class="form-card">
+                    <h2>📋 Información del Pasajero</h2>
+                    <form id="prediction-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="pclass">🎫 Clase del Pasaje</label>
+                            <select id="pclass" name="Pclass" required>
+                                <option value="">Selecciona tu clase</option>
+                                <option value="1">Primera Clase</option>
+                                <option value="2">Segunda Clase</option>
+                                <option value="3">Tercera Clase</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">👤 Edad</label>
+                            <input type="number" id="age" name="Age" min="0" max="100" value="25" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fare">💰 Precio del Boleto ($)</label>
+                            <input type="number" id="fare" name="Fare" min="0" max="600" step="0.01" value="32.00" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sex">⚤ Género</label>
+                            <select id="sex" name="Sex_male" required>
+                                <option value="">Selecciona tu género</option>
+                                <option value="0">Femenino</option>
+                                <option value="1" selected>Masculino</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="predict-btn">
+                            <span>🚀 Predecir Supervivencia</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <div class="ship-container">
+                    <h3>⚓ RMS Titanic</h3>
+                    <div class="titanic-ship" id="titanic-ship">
+                        <div class="ship-body">
+                            <div class="ship-deck"></div>
+                            <div class="ship-windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                            <div class="ship-funnel ship-funnel-1"></div>
+                            <div class="ship-funnel ship-funnel-2"></div>
+                            <div class="ship-funnel ship-funnel-3"></div>
+                            <div class="ship-funnel ship-funnel-4"></div>
+                            <div class="ship-smoke smoke-1"></div>
+                            <div class="ship-smoke smoke-2"></div>
+                            <div class="ship-smoke smoke-3"></div>
+                            <div class="ship-smoke smoke-4"></div>
+                        </div>
+                        <div class="water">
+                            <div class="water-waves"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card" id="result-card">
+                    <div class="result-placeholder" id="result-placeholder">
+                        <h3>📊 Resultado de Supervivencia</h3>
+                        <p>Completa el formulario para descubrir tu destino en el Titanic</p>
+                    </div>
+                    <div class="result-content hidden" id="result-content">
+                        <h3 id="result-title">🎯 Resultado Final</h3>
+                        
+                        <div class="probability-bar-container">
+                            <div class="probability-label">
+                                <span>❌ No Sobrevivió</span>
+                                <span>✅ Sobrevivió</span>
+                            </div>
+                            <div class="probability-bar">
+                                <div class="probability-fill" id="probability-fill"></div>
+                                <span class="probability-text" id="probability-text">0%</span>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="survival-chance">0%</div>
+                                <div class="stat-label">Probabilidad</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="prediction-result">-</div>
+                                <div class="stat-label">Veredicto</div>
+                            </div>
+                        </div>
+
+                        <p class="result-message" id="result-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-overlay hidden" id="loading-overlay">
+            <div class="loading-spinner"></div>
+            <p>Analizando datos históricos...</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
